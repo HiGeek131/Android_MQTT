@@ -6,36 +6,200 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="bottom">
+        android:gravity="top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
 
         <Button
-            android:layout_width="match_parent"
+            android:id="@+id/userButton8"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="开门"
-            android:textSize="30sp"
-            android:id="@+id/btn1"/>
+            android:text="Button"
+            app:layout_constraintStart_toStartOf="@+id/userButton5"
+            app:layout_constraintTop_toTopOf="@+id/userButton7" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:text="服务器地址"
+            app:layout_constraintEnd_toStartOf="@+id/serverAddr"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/serverAddr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="39.104.26.227"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView2" />
+
+        <EditText
+            android:id="@+id/mqttUserName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="test"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/serverAddr" />
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="MQTT用户名"
+            app:layout_constraintBaseline_toBaselineOf="@+id/mqttUserName"
+            app:layout_constraintEnd_toStartOf="@+id/mqttUserName"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/mqttPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/mqttUserName" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="MQTT密码"
+            app:layout_constraintBaseline_toBaselineOf="@+id/mqttPassword"
+            app:layout_constraintEnd_toStartOf="@+id/mqttPassword"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/mqttMessageTextView"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="60dp"
+            android:background="#4A00BCD4"
+            android:text='{“testTopic”:"testMessage"}'
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mqttPassword" />
 
         <Button
-            android:layout_width="match_parent"
+            android:id="@+id/disconnectButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="停止"
-            android:textSize="30sp"
-            android:id="@+id/btn2"/>
+            android:layout_marginTop="8dp"
+            android:text="断开"
+            app:layout_constraintEnd_toStartOf="@+id/connectButton"
+            app:layout_constraintStart_toEndOf="@+id/topicButton"
+            app:layout_constraintTop_toBottomOf="@+id/mqttPassword" />
 
         <Button
-            android:layout_width="match_parent"
+            android:id="@+id/connectButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:text="关门"
-            android:textSize="30sp"
-            android:id="@+id/btn3"/>
-    </LinearLayout>
+            android:text="连接"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/disconnectButton"
+            app:layout_constraintTop_toTopOf="@+id/disconnectButton" />
+
+        <Button
+            android:id="@+id/userButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintBottom_toTopOf="@+id/userButton4"
+            app:layout_constraintEnd_toStartOf="@+id/userButton2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mqttMessageTextView" />
+
+        <Button
+            android:id="@+id/userButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintEnd_toStartOf="@+id/userButton3"
+            app:layout_constraintStart_toEndOf="@+id/userButton1"
+            app:layout_constraintTop_toTopOf="@+id/userButton1" />
+
+        <Button
+            android:id="@+id/userButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/userButton2"
+            app:layout_constraintTop_toTopOf="@+id/userButton2" />
+
+        <Button
+            android:id="@+id/userButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintBottom_toTopOf="@+id/userButton7"
+            app:layout_constraintStart_toStartOf="@+id/userButton1"
+            app:layout_constraintTop_toBottomOf="@+id/userButton1" />
+
+        <Button
+            android:id="@+id/userButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintStart_toStartOf="@+id/userButton2"
+            app:layout_constraintTop_toTopOf="@+id/userButton4" />
+
+        <Button
+            android:id="@+id/userButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintStart_toStartOf="@+id/userButton3"
+            app:layout_constraintTop_toTopOf="@+id/userButton5" />
+
+        <Button
+            android:id="@+id/userButton7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/userButton4"
+            app:layout_constraintTop_toBottomOf="@+id/userButton4" />
+
+        <Button
+            android:id="@+id/userButton9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintStart_toStartOf="@+id/userButton6"
+            app:layout_constraintTop_toTopOf="@+id/userButton8" />
+
+        <Button
+            android:id="@+id/topicButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="标签设置"
+            app:layout_constraintEnd_toStartOf="@+id/disconnectButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/disconnectButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->

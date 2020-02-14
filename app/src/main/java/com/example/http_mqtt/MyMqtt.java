@@ -7,27 +7,25 @@ import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MyMqtt {
-    private String host = "tcp://39.104.26.227:1883";
-    private String userName = "test";
-    private String passWord = "test";
+//    private String host = "tcp://39.104.26.227:1883";
+//    private String userName = "test";
+//    private String passWord = "test";
     private MqttClient mqttClient;
     private String mqttClientID;
     private MemoryPersistence memoryPersistence;
     private MqttConnectOptions mqttConnectOptions;
-    public MyMqtt(String clientID) {
-        this(clientID, null, true);
+    public MyMqtt(String clientID, String host, String userName, String passWord) {
+        this(clientID, host, userName, passWord,  null, true);
         mqttClientID = clientID;
     }
 
-    public MyMqtt(String clientID, MqttCallback callback, boolean cleanSession) {
+    public MyMqtt(String clientID, String host, String userName, String passWord, MqttCallback callback, boolean cleanSession) {
         try {
-            mqttClient = new MqttClient(host, clientID, memoryPersistence = new MemoryPersistence());
+            mqttClient = new MqttClient("tcp://" + host + ":1883", clientID, memoryPersistence = new MemoryPersistence());
             mqttConnectOptions = new MqttConnectOptions();
             mqttConnectOptions.setCleanSession(cleanSession);
             mqttConnectOptions.setUserName(userName);
             mqttConnectOptions.setPassword(passWord.toCharArray());
-            mqttConnectOptions.setConnectionTimeout(10);
-            mqttConnectOptions.setKeepAliveInterval(20);
             if (callback == null) {
                 mqttClient.setCallback(new MqttCallback() {
                     @Override
@@ -49,10 +47,22 @@ public class MyMqtt {
             } else {
                 mqttClient.setCallback(callback);
             }
-            mqttClient.connect(mqttConnectOptions);
+//            mqttClient.connect(mqttConnectOptions);
         } catch (MqttException e) {
             e.printStackTrace();
         }
+    }
+
+    public int connection(int timeout, int aliveInterval) {
+        mqttConnectOptions.setConnectionTimeout(timeout);
+        mqttConnectOptions.setKeepAliveInterval(aliveInterval);
+        try {
+            mqttClient.connect(mqttConnectOptions);
+        } catch (MqttException e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return 0;
     }
 
     public int publishMessage(String topic, String msg) {
@@ -96,7 +106,7 @@ public class MyMqtt {
         return 0;
     }
 
-     void closeConnect() {
+     int closeConnect() {
         if(null != memoryPersistence) {
             try {
                 memoryPersistence.close();
@@ -105,6 +115,7 @@ public class MyMqtt {
             }
         } else {
             System.out.println("memoryPersistence is null");
+            return -3;
         }
 
         if(null != mqttClient) {
@@ -117,10 +128,13 @@ public class MyMqtt {
                 }
             } else {
                 System.out.println("mqttClient is not connect");
+                return -2;
             }
         } else {
             System.out.println("mqttClient is null");
+            return -1;
         }
+        return 0;
     }
 
     private void reConnect() {
